@@ -109,6 +109,7 @@ public:
     for(unsigned int i=0; i<n_joints_; i++)
     {  joints_[i].setCommand(commands_[i]);  }
   }
+  void stopping(const ros::Time& time);
 
   std::vector< std::string > joint_names_;
   std::vector< hardware_interface::JointHandle > joints_;
