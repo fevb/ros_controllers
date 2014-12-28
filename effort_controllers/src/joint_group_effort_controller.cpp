@@ -42,8 +42,15 @@ template <class T>
 void forward_command_controller::ForwardJointGroupCommandController<T>::starting(const ros::Time& time)
 {
   // Start controller with 0.0 efforts
-  commands_.resize(n_joints_, 0.0);
+  commands_ = std::vector<double>(n_joints_, 0.0);
 }
 
+template <class T>
+void forward_command_controller::ForwardJointGroupCommandController<T>::stopping(const ros::Time& time)
+{
+  // Stop controller with 0.0 velocities
+  commands_ = std::vector<double>(n_joints_, 0.0);
+  for(unsigned int i=0; i<n_joints_; i++) joints_[i].setCommand(commands_[i]);
+}
 
 PLUGINLIB_EXPORT_CLASS(effort_controllers::JointGroupEffortController,controller_interface::ControllerBase)
